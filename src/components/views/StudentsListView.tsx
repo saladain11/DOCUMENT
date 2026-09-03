@@ -84,7 +84,8 @@ export const StudentsListView: React.FC<StudentsListViewProps> = ({
   };
 
   const handleExportCsv = () => {
-    const url = `/api/students/export/csv${selectedClass ? `?classId=${selectedClass}` : ''}`;
+    const apiBase = ((import.meta as any).env?.VITE_API_URL || '').replace(/\/$/, '');
+    const url = `${apiBase}/api/students/export/csv${selectedClass ? `?classId=${selectedClass}` : ''}`;
     window.location.href = url;
   };
 

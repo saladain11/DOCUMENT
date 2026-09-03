@@ -1,3 +1,5 @@
+const API_BASE = ((import.meta as any).env?.VITE_API_URL || '').replace(/\/$/, '');
+
 // Centralized API client for «مساعد الأستاذ»
 export async function apiRequest<T = any>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const token = localStorage.getItem('mosaid_token');
@@ -10,7 +12,9 @@ export async function apiRequest<T = any>(endpoint: string, options: RequestInit
     headers.set('Authorization', `Bearer ${token}`);
   }
 
-  const response = await fetch(endpoint, {
+  const targetUrl = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint}`;
+
+  const response = await fetch(targetUrl, {
     ...options,
     headers
   });
@@ -25,7 +29,14 @@ export async function apiRequest<T = any>(endpoint: string, options: RequestInit
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
-    const errorMsg = data?.error || data?.message || `خطأ في الخادم (${response.status})`;
+    let errorMsg = data?.error || data?.message;
+    if (!errorMsg) {
+      if (response.status === 405) {
+        errorMsg = 'خطأ (405): خادم Node.js غير مشغّل أو أن الموقع منشور كصفحات ثابتة (Static Site) فقط ولا يستقبل طلبات البرمجة الخلفية.';
+      } else {
+        errorMsg = `خطأ في الخادم (${response.status})`;
+      }
+    }
     throw new Error(errorMsg);
   }
 
