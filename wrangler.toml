@@ -14,4 +14,4 @@ binding = "ASSETS"
 [[d1_databases]]
 binding = "DB"
 database_name = "document-d1"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "229d054b-85dc-4a14-a21c-e57c6204aaee"
