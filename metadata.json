@@ -1,0 +1,6 @@
+{
+  "name": "مساعد الأستاذ",
+  "description": "منصة متكاملة لتدبير القسم والملف التربوي وتتبع المتعلمين والموارد للمدرسة المغربية",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
