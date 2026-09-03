@@ -1,0 +1,17 @@
+name = "document"
+main = "worker/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# Static assets from the React Vite build (in dist/)
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+# Cloudflare D1 Database Binding
+# 1. Create your D1 database with: npx wrangler d1 create document-d1
+# 2. Paste the database_id returned by Cloudflare below
+[[d1_databases]]
+binding = "DB"
+database_name = "document-d1"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
